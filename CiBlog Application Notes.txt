@@ -1,0 +1,42 @@
+***CiBlog Application Notes***
+
+In config/config.php
+$config['base_url'] = 'http://localhost:8080/ciblog';
+
+$route['default_controller'] = 'pages/view' --> Not 'pages/view/'
+$route['(:any)'] = 'pages/view/$1'
+
+**Fucked up in config/autoload.php
+$autoload['helper'] = array('url');
+
+$this->load->view('posts/index', $data) --> not concatenate $data. It is a comma.
+
+Order
+	1. Create a controller method.
+	2. Create the relevant view in the correct directory.
+	3. Then go to models to manipulate database.
+
+$autoload['helper'] = array('url','form')
+
+Getting Form inputs
+	$title = $this->input->post('title')
+	$body = $this->input->post('body')
+
+inserting to database
+	return $this->db->insert('posts', $data)
+
+
+Controller --> Model --> View
+
+!!! Controller method is always a view name !!!
+
+To Limit a passage to be shown in the webpage we can use the word_limiter(text, limit-integer) after editing the autoload helper. 
+
+$autoload['helper'] = array('url','form','text')
+
+$this->db->order_by('name'); Not Like $this->db->orderby('name');
+
+The post in $this->input->post('category_id') is reference the post method in forms.
+
+
+When you create a particular model in your application, you have to go to autoload.php and add the model name at the bottom to $autoload[model] = array('model_name_1', model_name_2, model_name_3)
